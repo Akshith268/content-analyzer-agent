@@ -7,6 +7,23 @@ import os
 import sys
 import subprocess
 
+# Load environment variables from .env file
+def load_env():
+    """Load environment variables from .env file if it exists"""
+    env_path = '.env'
+    if os.path.exists(env_path):
+        with open(env_path, 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    key = key.strip()
+                    value = value.strip().strip('"').strip("'")
+                    os.environ[key] = value
+        print("✅ Environment variables loaded from .env")
+    else:
+        print("⚠️  No .env file found. Please create one with your GOOGLE_API_KEY")
+
 def print_banner():
     print("=" * 60)
     print("🤖 AI CONTENT ANALYZER")
@@ -113,4 +130,6 @@ def main():
             print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
+    # Load environment variables first
+    load_env()
     main()

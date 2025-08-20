@@ -7,6 +7,7 @@ import google.generativeai as genai
 import hashlib
 import json
 import time
+import os
 from datetime import datetime
 
 class SimpleContentAgent:
@@ -17,7 +18,10 @@ class SimpleContentAgent:
         self.analyses_count = 0
         
         # Configure Gemini AI
-        genai.configure(api_key="AIzaSyA2302_UBqB9VHmIObrUq9LWGlvNkzFK1M")
+        api_key = os.getenv('GOOGLE_API_KEY')
+        if not api_key:
+            raise ValueError("GOOGLE_API_KEY environment variable not set. Please add it to your .env file.")
+        genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
         
         print(f"✅ {self.name} initialized")

@@ -3,6 +3,7 @@
 This agent actually uses historical data to improve decisions
 """
 
+import os
 import google.generativeai as genai
 from datetime import datetime, timezone
 import json
@@ -37,7 +38,10 @@ class TrueLearningAgent:
         self.session_id = f"session_{int(time.time())}"
         
         # AI Setup
-        genai.configure(api_key="AIzaSyA2302_UBqB9VHmIObrUq9LWGlvNkzFK1M")
+        api_key = os.getenv('GOOGLE_API_KEY')
+        if not api_key:
+            raise ValueError("GOOGLE_API_KEY environment variable not set. Please add it to your .env file.")
+        genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
         
         # Database connections

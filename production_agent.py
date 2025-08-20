@@ -23,7 +23,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Configure Gemini
-genai.configure(api_key="AIzaSyA2302_UBqB9VHmIObrUq9LWGlvNkzFK1M")
+api_key = os.getenv('GOOGLE_API_KEY')
+if not api_key:
+    raise ValueError("GOOGLE_API_KEY environment variable not set. Please add it to your .env file.")
+genai.configure(api_key=api_key)
 
 @dataclass
 class AgentMemory:
