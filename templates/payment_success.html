@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Submitted - ContentGuard Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .success-animation {
+            animation: bounceIn 1s ease-in-out;
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #28a745;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #28a745;
+        }
+        
+        .timeline-item.pending::before {
+            background: #ffc107;
+        }
+        
+        .timeline-item.future::before {
+            background: #dee2e6;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <i class="fas fa-shield-alt"></i> ContentGuard Pro 🇮🇳
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Success Message -->
+                <div class="card border-success success-animation mb-4">
+                    <div class="card-header bg-success text-white text-center">
+                        <div class="display-1 mb-3">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Payment Submitted Successfully!</h2>
+                        <p class="mb-0">Your transaction has been received and is under verification</p>
+                    </div>
+                    
+                    <div class="card-body">
+                        <!-- Transaction Details -->
+                        <div class="alert alert-info">
+                            <h5><i class="fas fa-receipt"></i> Transaction Details</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Transaction ID:</strong> {{ transaction_id }}<br>
+                                    <strong>Plan:</strong> {{ plan_info.name }} Plan<br>
+                                    <strong>Amount:</strong> ₹{{ plan_info.price }}
+                                </div>
+                                <div class="col-md-6">
+                                    <strong>Email:</strong> {{ user_email }}<br>
+                                    <strong>Submitted:</strong> {{ submission_time }}<br>
+                                    <strong>Status:</strong> <span class="badge bg-warning">Pending Verification</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <h5><i class="fas fa-clock"></i> Verification Process</h5>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <h6><i class="fas fa-paper-plane text-success"></i> Payment Submitted</h6>
+                                <p class="text-muted mb-0">Your transaction details have been received</p>
+                                <small class="text-success">✓ Completed</small>
+                            </div>
+                            
+                            <div class="timeline-item pending">
+                                <h6><i class="fas fa-search text-warning"></i> Manual Verification</h6>
+                                <p class="text-muted mb-0">Our team is verifying your payment with bank records</p>
+                                <small class="text-warning">⏳ In Progress (Usually takes 2-24 hours)</small>
+                            </div>
+                            
+                            <div class="timeline-item future">
+                                <h6><i class="fas fa-crown text-muted"></i> Plan Activation</h6>
+                                <p class="text-muted mb-0">Your premium plan will be activated automatically</p>
+                                <small class="text-muted">⏳ Pending</small>
+                            </div>
+                            
+                            <div class="timeline-item future">
+                                <h6><i class="fas fa-envelope text-muted"></i> Confirmation Email</h6>
+                                <p class="text-muted mb-0">You'll receive a confirmation email with your plan details</p>
+                                <small class="text-muted">⏳ Pending</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What's Next -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-lightbulb"></i> What's Next?</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-bell"></i> Stay Updated</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success"></i> Check your email for updates</li>
+                                    <li><i class="fas fa-check text-success"></i> Monitor your dashboard for plan status</li>
+                                    <li><i class="fas fa-check text-success"></i> WhatsApp notifications available</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="fas fa-rocket"></i> Meanwhile</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check text-success"></i> Continue using free tier</li>
+                                    <li><i class="fas fa-check text-success"></i> Explore API documentation</li>
+                                    <li><i class="fas fa-check text-success"></i> Prepare content for analysis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="/dashboard" class="btn btn-primary btn-lg">
+                        <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                    </a>
+                    <a href="/analyze" class="btn btn-success btn-lg">
+                        <i class="fas fa-search"></i> Start Analyzing
+                    </a>
+                    <a href="/api-docs" class="btn btn-info btn-lg">
+                        <i class="fas fa-code"></i> API Docs
+                    </a>
+                </div>
+
+                <!-- Support -->
+                <div class="card mt-4">
+                    <div class="card-body text-center">
+                        <h6><i class="fas fa-headset"></i> Need Help with Your Payment?</h6>
+                        <p class="text-muted">
+                            If you have any questions about your payment or need assistance, our support team is here to help.
+                        </p>
+                        <div class="row justify-content-center">
+                            <div class="col-md-8">
+                                <div class="d-flex flex-wrap justify-content-center gap-3">
+                                    <a href="mailto:support@contentguard.in?subject=Payment%20Query%20-%20{{ transaction_id }}" class="btn btn-outline-primary">
+                                        <i class="fas fa-envelope"></i> Email Support
+                                    </a>
+                                    <a href="tel:+919876543210" class="btn btn-outline-success">
+                                        <i class="fas fa-phone"></i> Call Us
+                                    </a>
+                                    <a href="https://wa.me/919876543210?text=Hi,%20I%20need%20help%20with%20payment%20{{ transaction_id }}" class="btn btn-outline-success" target="_blank">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                </div>
+                                <small class="text-muted d-block mt-2">
+                                    Reference your transaction ID: <strong>{{ transaction_id }}</strong>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="fas fa-question-circle"></i> Frequently Asked Questions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq1">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                        How long does verification take?
+                                    </button>
+                                </h2>
+                                <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Most payments are verified within 2-4 hours during business hours (9 AM - 6 PM IST). 
+                                        Weekend payments may take up to 24 hours.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                        What if my payment is not verified?
+                                    </button>
+                                </h2>
+                                <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        If there are any issues with verification, we'll contact you via email or phone. 
+                                        Common issues include incorrect transaction ID or amount mismatch.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                        Can I get a refund?
+                                    </button>
+                                </h2>
+                                <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, we offer a 7-day money-back guarantee. If you're not satisfied with our service, 
+                                        contact support within 7 days of plan activation.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh page every 5 minutes to check for updates
+        setTimeout(() => {
+            window.location.reload();
+        }, 5 * 60 * 1000);
+
+        // Show notification about auto-refresh
+        setTimeout(() => {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('ContentGuard Pro', {
+                    body: 'We\'ll notify you when your payment is verified!',
+                    icon: '/static/icon.png'
+                });
+            }
+        }, 3000);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

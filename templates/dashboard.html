@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ContentGuard Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <i class="fas fa-shield-alt"></i> ContentGuard Pro
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/analyze">
+                    <i class="fas fa-search"></i> Analyze Content
+                </a>
+                <a class="nav-link" href="/docs">
+                    <i class="fas fa-book"></i> API Docs
+                </a>
+                <a class="nav-link" href="/logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-user"></i> Account Overview</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Plan:</strong> 
+                            <span class="badge bg-primary">{{ user.plan|title }}</span>
+                        </p>
+                        <p><strong>Usage:</strong></p>
+                        <div class="progress mb-2">
+                            {% set usage_percent = (user.analyses_used / user.analyses_limit * 100) if user.analyses_limit > 0 else 0 %}
+                            <div class="progress-bar" style="width: {{ usage_percent }}%"></div>
+                        </div>
+                        <small>{{ user.analyses_used }} / {{ user.analyses_limit if user.analyses_limit > 0 else 'Unlimited' }} analyses used</small>
+                        
+                        <hr>
+                        <h6><i class="fas fa-key"></i> API Key</h6>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="{{ user.api_key }}" readonly id="apiKey">
+                            <button class="btn btn-outline-secondary" onclick="copyApiKey()">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted">Use this key for API requests</small>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-credit-card"></i> Upgrade Plan</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for plan_key, plan_data in pricing_plans.items() %}
+                            {% if plan_key != user.plan %}
+                            <div class="d-grid gap-2 mb-2">
+                                <a href="/upgrade/{{ plan_key }}" class="btn btn-outline-primary btn-sm">
+                                    {{ plan_data.name }} - ${{ plan_data.price }}/mo
+                                </a>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card text-center bg-primary text-white">
+                            <div class="card-body">
+                                <i class="fas fa-search fa-2x mb-2"></i>
+                                <h4>{{ user.analyses_used }}</h4>
+                                <p class="mb-0">Analyses Used</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card text-center bg-success text-white">
+                            <div class="card-body">
+                                <i class="fas fa-check-circle fa-2x mb-2"></i>
+                                <h4>{{ user.analyses_limit - user.analyses_used if user.analyses_limit > 0 else 'Unlimited' }}</h4>
+                                <p class="mb-0">Remaining</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card text-center bg-info text-white">
+                            <div class="card-body">
+                                <i class="fas fa-brain fa-2x mb-2"></i>
+                                <h4>AI</h4>
+                                <p class="mb-0">Learning Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <div class="card text-center bg-warning text-white">
+                            <div class="card-body">
+                                <i class="fas fa-bolt fa-2x mb-2"></i>
+                                <h4>&lt;1s</h4>
+                                <p class="mb-0">Response Time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-4 mb-3">
+                                        <a href="/analyze" class="btn btn-primary w-100">
+                                            <i class="fas fa-search"></i> Analyze Content
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <a href="/docs" class="btn btn-outline-primary w-100">
+                                            <i class="fas fa-book"></i> API Documentation
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <a href="/pricing" class="btn btn-outline-success w-100">
+                                            <i class="fas fa-arrow-up"></i> Upgrade Plan
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Integration Guide -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-code"></i> API Integration</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Use your API key to integrate ContentGuard Pro into your applications:</p>
+                        
+                        <h6>cURL Example:</h6>
+                        <pre class="bg-dark text-light p-3 rounded"><code>curl -X POST "http://localhost:5000/api/v1/analyze" \
+  -H "X-API-Key: {{ user.api_key }}" \
+  -H "Content-Type: application/json" \
+  -d '{"content": "Your content to analyze"}'</code></pre>
+
+                        <h6>Python Example:</h6>
+                        <pre class="bg-dark text-light p-3 rounded"><code>import requests
+
+response = requests.post(
+    "http://localhost:5000/api/v1/analyze",
+    headers={"X-API-Key": "{{ user.api_key }}"},
+    json={"content": "Your content to analyze"}
+)
+
+result = response.json()
+print(f"Decision: {result['analysis']['decision']}")
+print(f"Confidence: {result['analysis']['confidence']}")
+</code></pre>
+
+                        <div class="mt-3">
+                            <a href="/docs" class="btn btn-primary">
+                                <i class="fas fa-book"></i> Full API Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyApiKey() {
+            const apiKeyInput = document.getElementById('apiKey');
+            apiKeyInput.select();
+            apiKeyInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(apiKeyInput.value);
+            
+            // Show feedback
+            const button = event.target.closest('button');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

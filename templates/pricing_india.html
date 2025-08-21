@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - ContentGuard Pro India</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        .pricing-card {
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .pricing-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+        .pricing-card.featured {
+            border-color: #28a745;
+            position: relative;
+        }
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+        .btn-success-custom {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            color: white;
+        }
+        .btn-success-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+        .india-flag {
+            background: linear-gradient(to right, #ff9933, #ffffff, #138808);
+            height: 3px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shield-alt"></i> ContentGuard Pro 🇮🇳
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/docs">API Docs</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-custom ms-2" href="/signup">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- India Flag -->
+    <div class="india-flag"></div>
+
+    <!-- Header -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Choose Your Plan</h1>
+            <p class="lead text-muted">Made for India 🇮🇳 • Pay in INR • GST Compliant</p>
+            <div class="mt-3">
+                <span class="badge bg-success me-2">💳 Razorpay Secure</span>
+                <span class="badge bg-info me-2">🏦 All Indian Banks</span>
+                <span class="badge bg-warning">📱 UPI Supported</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Free Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Free</h5>
+                            <h2 class="fw-bold">₹0<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">Perfect for testing</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for feature in pricing_plans.free.features %}
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    {{ feature }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <a href="/signup" class="btn btn-outline-primary w-100">Get Started Free</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card featured h-100 text-center">
+                        <div class="featured-badge">MOST POPULAR</div>
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Pro</h5>
+                            <h2 class="fw-bold">₹{{ pricing_plans.pro.price }}<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">For growing businesses</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for feature in pricing_plans.pro.features %}
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    {{ feature }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <button class="btn btn-success-custom w-100" onclick="purchasePlan('pro')">
+                                <i class="fas fa-credit-card"></i> Pay ₹{{ pricing_plans.pro.price }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Business</h5>
+                            <h2 class="fw-bold">₹{{ pricing_plans.business.price }}<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">For large teams</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for feature in pricing_plans.business.features %}
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    {{ feature }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <button class="btn btn-custom w-100" onclick="purchasePlan('business')">
+                                <i class="fas fa-credit-card"></i> Pay ₹{{ pricing_plans.business.price }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Enterprise</h5>
+                            <h2 class="fw-bold">₹{{ pricing_plans.enterprise.price }}<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">Custom solutions</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                {% for feature in pricing_plans.enterprise.features %}
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    {{ feature }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <button class="btn btn-custom w-100" onclick="purchasePlan('enterprise')">
+                                <i class="fas fa-credit-card"></i> Pay ₹{{ pricing_plans.enterprise.price }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h3 class="fw-bold mb-4">💳 Secure Payment Methods</h3>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="d-flex justify-content-center align-items-center flex-wrap">
+                        <span class="badge bg-primary fs-6 m-2">💳 Credit Cards</span>
+                        <span class="badge bg-success fs-6 m-2">🏦 Debit Cards</span>
+                        <span class="badge bg-info fs-6 m-2">📱 UPI</span>
+                        <span class="badge bg-warning fs-6 m-2">💰 Net Banking</span>
+                        <span class="badge bg-secondary fs-6 m-2">📲 Wallets</span>
+                    </div>
+                    <p class="text-muted mt-3">Powered by Razorpay • Bank-level security • Instant activation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+                    
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    Is GST included in the pricing?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! All prices include 18% GST. You'll receive a GST-compliant invoice for your business records.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    Can I pay with UPI or Indian bank accounts?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely! We support UPI, net banking, debit cards, credit cards, and digital wallets through Razorpay.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                    What happens if I exceed my analysis limit?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Your API requests will be paused until the next billing cycle, or you can upgrade your plan instantly for immediate access.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                    Do you offer refunds?
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! We offer a 7-day money-back guarantee. If you're not satisfied, contact support for a full refund.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">Ready to Secure Your Content?</h2>
+            <p class="lead mb-4">Join hundreds of Indian businesses using ContentGuard Pro</p>
+            <a href="/signup" class="btn btn-light btn-lg me-3">
+                <i class="fas fa-rocket"></i> Start Free Trial
+            </a>
+            <a href="/docs" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-book"></i> View API Docs
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 ContentGuard Pro India. All rights reserved.</p>
+            <p class="mb-0">
+                <small>Made with ❤️ for Indian businesses • GST: XXXXXXXXXX • Secure payments by Razorpay</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function purchasePlan(plan) {
+            // Check if user is logged in
+            fetch('/dashboard')
+                .then(response => {
+                    if (response.redirected && response.url.includes('/login')) {
+                        // User not logged in, redirect to signup
+                        window.location.href = '/signup';
+                        return;
+                    }
+                    
+                    // User is logged in, proceed with payment
+                    createOrder(plan);
+                })
+                .catch(() => {
+                    // Assume not logged in
+                    window.location.href = '/signup';
+                });
+        }
+
+        function createOrder(plan) {
+            fetch('/create-order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ plan: plan })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    return;
+                }
+                
+                // Open Razorpay checkout
+                var options = {
+                    "key": data.key,
+                    "amount": data.amount,
+                    "currency": data.currency,
+                    "name": data.name,
+                    "description": data.description,
+                    "order_id": data.order_id,
+                    "prefill": data.prefill,
+                    "theme": {
+                        "color": "#667eea"
+                    },
+                    "handler": function (response) {
+                        // Verify payment
+                        verifyPayment(response, plan);
+                    },
+                    "modal": {
+                        "ondismiss": function() {
+                            console.log('Payment cancelled');
+                        }
+                    }
+                };
+                
+                var rzp = new Razorpay(options);
+                rzp.open();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to create order. Please try again.');
+            });
+        }
+
+        function verifyPayment(response, plan) {
+            fetch('/verify-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_signature: response.razorpay_signature,
+                    plan: plan
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Payment successful, redirect to dashboard
+                    window.location.href = data.redirect;
+                } else {
+                    alert('Payment verification failed: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Payment verification failed. Please contact support.');
+            });
+        }
+    </script>
+</body>
+</html>

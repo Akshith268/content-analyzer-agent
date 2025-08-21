@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - ContentGuard Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .pricing-card {
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+        .pricing-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            transform: translateY(-5px);
+        }
+        .pricing-card.featured {
+            border-color: #667eea;
+            position: relative;
+        }
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-shield-alt"></i> ContentGuard Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/docs">API Docs</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-custom ms-2" href="/signup">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-3">Choose Your Plan</h1>
+            <p class="lead text-muted">Start free, scale as you grow. No hidden fees.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Free Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Free</h5>
+                            <h2 class="fw-bold">$0<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">Perfect for testing</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    100 analyses/month
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    API access
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Learning AI system
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Email support
+                                </li>
+                                <li class="mb-2 text-muted">
+                                    <i class="fas fa-times"></i>
+                                    Priority support
+                                </li>
+                                <li class="mb-2 text-muted">
+                                    <i class="fas fa-times"></i>
+                                    Custom integrations
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <a href="/signup" class="btn btn-outline-primary w-100">Get Started Free</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card featured h-100 text-center">
+                        <div class="featured-badge">MOST POPULAR</div>
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Pro</h5>
+                            <h2 class="fw-bold">$29<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">For growing businesses</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    10,000 analyses/month
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    API access + webhooks
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Advanced AI learning
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Priority support
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Analytics dashboard
+                                </li>
+                                <li class="mb-2 text-muted">
+                                    <i class="fas fa-times"></i>
+                                    Custom integrations
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <a href="/upgrade/pro" class="btn btn-custom w-100">Choose Pro</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Business</h5>
+                            <h2 class="fw-bold">$99<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">For large teams</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    100,000 analyses/month
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Full API suite
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Custom AI training
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    24/7 support
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Team management
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Basic integrations
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <a href="/upgrade/business" class="btn btn-custom w-100">Choose Business</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card pricing-card h-100 text-center">
+                        <div class="card-header bg-white border-0 pt-4">
+                            <h5 class="card-title">Enterprise</h5>
+                            <h2 class="fw-bold">$299<small class="text-muted">/month</small></h2>
+                            <p class="text-muted">Custom solutions</p>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Unlimited analyses
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    White-label options
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Dedicated AI models
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Dedicated support
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    Custom integrations
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success"></i>
+                                    SLA guarantee
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer bg-white border-0 pb-4">
+                            <a href="mailto:enterprise@contentguard.pro" class="btn btn-custom w-100">Contact Sales</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h2 class="text-center mb-5">Frequently Asked Questions</h2>
+                    
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    Can I change my plan anytime?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and billing is prorated.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    What happens if I exceed my analysis limit?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Your API requests will be temporarily paused until the next billing cycle, or you can upgrade your plan instantly.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                    Is my data secure?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Absolutely. We use enterprise-grade encryption and never store your content permanently. Analysis results are stored securely for learning purposes only.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">Ready to Get Started?</h2>
+            <p class="lead mb-4">Join thousands of businesses using ContentGuard Pro</p>
+            <a href="/signup" class="btn btn-custom btn-lg me-3">
+                <i class="fas fa-rocket"></i> Start Free Trial
+            </a>
+            <a href="/docs" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-book"></i> View API Docs
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 ContentGuard Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
